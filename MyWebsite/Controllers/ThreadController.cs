@@ -65,6 +65,7 @@ namespace MyWebsite.Controllers
             return View(viewModel);
         }
 
+        //Rates threads.
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
             var thread = _context.Threads.Single(c => c.Id == id);
