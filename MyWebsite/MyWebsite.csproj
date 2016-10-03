@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/93354efc-f5f3-40df-8942-7c01f421cdda/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/MyWebsite</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -435,6 +436,7 @@
     <Content Include="Views\Thread\ViewThread.cshtml" />
     <Content Include="Views\Home\Form.cshtml" />
     <Content Include="Views\User\ViewUserPage.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -566,6 +568,9 @@
     <EmbeddedResource Include="Migrations\201609302250143_FinalUpdate.resx">
       <DependentUpon>201609302250143_FinalUpdate.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
