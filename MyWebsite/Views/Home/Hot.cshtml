@@ -1,0 +1,47 @@
+﻿@model MyWebsite.ViewModels.NewThreadViewModel
+
+@{
+    ViewBag.Title = "Hot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            @foreach (var oink in Model.ThreadList.OrderByDescending(c => c.Rating))
+            {
+                <p>
+                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", oink.Id, location = "Hot"})><i style='font-size:24px' class='fa'>&uarr;</i></a>
+                    @oink.Rating
+                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", oink.Id, location = "Hot" })><i style='font-size:24px' class='fa'>&darr;</i></a>
+                    - @Html.ActionLink(oink.Title, "ViewThread", new { controller = "Thread", action = "ViewThread", id = oink.Id })
+                <p>
+                    <div class="thread-creation">
+                        @{
+                            var date = DateTime.Now.Subtract(oink.Created);
+                            string days = " days, ";
+                            string hours = " hours and";
+                            string minutes = "minutes";
+                        }
+                        Submitted:
+                        @if (date.Days > 0)
+                        {
+                            @date.Days;
+                            @days;
+                        }
+                        @if (date.Hours > 0)
+                        {
+                            @date.Hours;
+                            @hours;
+                        } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = oink.Creator})>@oink.Creator</a>.
+                    </div>
+                </p>
+                </p>
+                            }
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,51 @@
+﻿@model MyWebsite.ViewModels.NewThreadViewModel
+
+@{
+    ViewBag.Title = "Controversial";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-xs-12">
+
+
+            @foreach (var oink in Model.ThreadList.OrderByDescending(c => c.Rating))
+            {
+                var date = DateTime.Now.Subtract(oink.Created);
+                string days = " days, ";
+                string hours = " hours and ";
+                string minutes = "minutes";
+
+                if ((oink.upvoteCount > 2) && (oink.downvoteCount > 2))
+                {
+                    <p>
+                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", oink.Id, location = "Controversial"})><i style='font-size:24px' class='fa'>&uarr;</i></a>
+                        @oink.Rating
+                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", oink.Id, location = "Controversial" })><i style='font-size:24px' class='fa'>&darr;</i></a>
+                        - @Html.ActionLink(oink.Title, "ViewThread", new { controller = "Thread", action = "ViewThread", id = oink.Id })
+                    </p>
+                    <p>
+                        <div class="thread-creation">
+                            Submitted:
+                            @if (date.Days > 0)
+                            {
+                                @date.Days;
+                                @days;
+                            }
+                            @if (date.Hours > 0)
+                            {
+                                @date.Hours;
+                                @hours;
+                            }
+                            @date.Minutes mintues ago, by  <a href=@Url.Action("ViewUserPage", "User", new {creatorId = oink.Creator})>@oink.Creator</a>
+                        </div>
+                    </p>
+                }
+
+            }
+
+        </div>
+    </div>
+
+</div>

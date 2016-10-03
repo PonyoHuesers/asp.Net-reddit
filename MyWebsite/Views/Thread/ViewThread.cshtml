@@ -1,0 +1,128 @@
+﻿@using Microsoft.Ajax.Utilities
+@using MyWebsite.Models
+@model MyWebsite.ViewModels.NewThreadViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Threads.Title</h2>
+
+<p>
+    <div class="thread-creation-viewthread">
+        @{
+            var date = DateTime.Now.Subtract(Model.Threads.Created);
+            string days = " days, ";
+            string hours = " hours and";
+            string minutes = "minutes";
+        }
+        Submitted:
+        @if (date.Days > 0)
+        {
+            @date.Days;
+            @days;
+        }
+        @if (date.Hours > 0)
+        {
+            @date.Hours;
+            @hours;
+        } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = @Model.Threads.Creator})>@Model.Threads.Creator</a>.
+    </div>
+</p>
+
+
+<div class="panel panel-primary panel-heading tweaks">@Model.Threads.Comment</div>
+
+
+
+@using (Html.BeginForm("SaveComment", "Comment"))
+{
+    <div class="form-group">
+        @Html.TextAreaFor(c => c.Replies.Name, new { @class = "wide" })
+    </div>
+
+    @Html.HiddenFor(c => c.Threads.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+
+<hr />
+
+@{
+    var commentId = 0;
+    var x = Model.RepliesList.OrderBy(c => c.Key);
+}
+
+<!--Loops through comments in order, grouping key to chain of replies-->
+@foreach (var oink in Model.RepliesList.OrderByDescending(c => c.Rating))
+{
+    if (oink.Tier == 0)
+    {
+        var modifiedReplies = x.Where(c => c.Key.StartsWith(oink.Key));
+
+        foreach (var kk in modifiedReplies)
+        {
+            var tier2 = kk.Tier * 40;
+            var numb2 = tier2 + "px";
+
+            <p>
+                <div style="padding-left: @numb2; margin-top: -7px;">
+                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "up", kk.Id})><i style='font-size: 24px' class='fa'>&uarr;</i></a>
+                    @kk.Rating
+                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "down", kk.Id})><i style='font-size: 24px' class='fa'>&darr;</i></a>
+
+                    <a href=@Url.Action("ViewUserPage", "User", new {creatorId = kk.Creator})>@kk.Creator</a> ~
+                    <a onclick="myFunction" href="javascript:myFunction(@commentId)">Reply</a> <br />
+                    
+                    <p>
+                        <div class="thread-creation-viewthread">
+                            @{
+                                var date2 = DateTime.Now.Subtract(kk.Created);
+                                string days2 = " days, ";
+                                string hours2 = " hours and";
+                                string minutes2 = "minutes";
+                            }
+                            Submitted:
+                            @if (date2.Days > 0)
+                            {
+                                @date2.Days;
+                                @days2;
+                            }
+                            @if (date2.Hours > 0)
+                            {
+                                @date2.Hours;
+                                @hours2;
+                            } @date2.Minutes minutes ago.
+                        </div>
+                    </p>
+
+                <p style="padding-left: 42px; padding-bottom: 15px;">@kk.Name</p>
+
+
+
+                    <div style="padding-left: 42px; margin-top: 7px; display: none;" id=@commentId>
+
+                @using (Html.BeginForm("SaveReplyOnComment", "Comment"))
+                        {
+                    @Html.TextAreaFor(c => c.Replies.Name, new { @style = "width:250px; height:85px;" })
+                    <br />
+
+                            @Html.HiddenFor(c => c.Threads.Id)
+                            <button name="submit" type="submit" id=@commentId value=@kk.Id class="btn btn-primary">Save</button>
+                }
+                @{ commentId = commentId + 1; }
+            </div>
+            </div>
+            </p>
+
+
+                            }
+
+                        }
+                    }
+
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    function myFunction(id) {
+        $("#" + id).show();
+    };
+</script>

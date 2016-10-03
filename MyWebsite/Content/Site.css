@@ -1,0 +1,66 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar-picture{
+    background: url(http://i1070.photobucket.com/albums/u499/quakerknight/tracyton_sunset_1900px_zpsv8bgydfk.jpg) no-repeat;
+    background-size: 1950px 250px;
+    height:120px;
+    margin:5px;
+    width:1900px;
+}
+
+.custom-navbar {
+    background-color: transparent;
+    width: 1950px;
+    height: 20px;
+    margin-top: -50px;
+}
+
+.wide {
+    width: 850px;
+    height: 125px;
+}
+
+div.thread-creation {
+    font-size: 11px;
+    color: lightgrey;
+    padding-left:  65px;
+    padding-bottom: 10px;
+    margin-top: -12px;
+}
+
+div.thread-creation-viewthread {
+    font-size: 11px;
+    color: lightgrey;
+    padding-bottom: 10px;
+    margin-top: -8px;
+}
+
+div.tweaks {
+    width: 55%;
+}
+
+
+
