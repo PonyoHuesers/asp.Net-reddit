@@ -20,14 +20,14 @@ namespace MyWebsite.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext()
+            : base("DefaultConnection", false)
+        {
+        }
+
         public DbSet<User> DbUsers { get; set; }
         public DbSet<Thread> Threads { get; set; }
         public DbSet<Reply> Replies { get; set; }
-
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
 
         public static ApplicationDbContext Create()
         {

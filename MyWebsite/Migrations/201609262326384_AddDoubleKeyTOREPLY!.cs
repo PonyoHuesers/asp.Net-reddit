@@ -1,15 +1,14 @@
+using System.Data.Entity.Migrations;
+
 namespace MyWebsite.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddDoubleKeyTOREPLY : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Replies", "Key", c => c.Double(nullable: false));
+            AddColumn("dbo.Replies", "Key", c => c.Double(false));
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.Replies", "Key");

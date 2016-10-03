@@ -1,8 +1,7 @@
+using System.Data.Entity.Migrations;
+
 namespace MyWebsite.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class RemovedChildIdParentIdFromREply : DbMigration
     {
         public override void Up()
@@ -12,25 +11,25 @@ namespace MyWebsite.Migrations
             DropColumn("dbo.Replies", "ChildId");
             DropTable("dbo.Comments");
         }
-        
+
         public override void Down()
         {
             CreateTable(
-                "dbo.Comments",
-                c => new
+                    "dbo.Comments",
+                    c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        Id = c.Int(false, true),
                         Name = c.String(),
-                        ThreadId = c.Int(nullable: false),
-                        Rating = c.Int(nullable: false),
+                        ThreadId = c.Int(false),
+                        Rating = c.Int(false),
                         Creator = c.String(),
-                        CommentId = c.Int(nullable: false),
+                        CommentId = c.Int(false)
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             AddColumn("dbo.Replies", "ChildId", c => c.Int());
-            AddColumn("dbo.Replies", "Used", c => c.Int(nullable: false));
-            AddColumn("dbo.Replies", "CommentId", c => c.Int(nullable: false));
+            AddColumn("dbo.Replies", "Used", c => c.Int(false));
+            AddColumn("dbo.Replies", "CommentId", c => c.Int(false));
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using Microsoft.Ajax.Utilities
-@model MyWebsite.ViewModels.NewThreadViewModel
+﻿@model MyWebsite.ViewModels.NewThreadViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,13 +9,16 @@
     var threadList = Model.ThreadList;
 }
 
-<h2><u>Threads</u></h2>
+<h2>
+    <u>Threads</u>
+</h2>
 @if (threadList.Any(c => c.Creator == Model.UserObject.Name))
 {
     foreach (var thread in threadList)
     {
-        <p>@Html.ActionLink(@thread.Title, "ViewThread", new { controller = "Thread", action = "ViewThread", id = @thread.Id })</p>
-        <p>By: @Model.UserObject.Name</p><br/>
+        <p>@Html.ActionLink(thread.Title, "ViewThread", new {controller = "Thread", action = "ViewThread", id = thread.Id})</p>
+        <p>By: @Model.UserObject.Name</p>
+        <br/>
     }
 }
 else
@@ -27,16 +29,20 @@ else
 <br/>
 <hr/>
 
-<h2><u>Comments</u></h2>
+<h2>
+    <u>Comments</u>
+</h2>
 @if (Model.RepliesList.Any(c => c.Creator == Model.UserObject.Name))
 {
     foreach (var reply in Model.RepliesList)
     {
         var thread2 = Model.ThreadsActualList.Where(c => c.Id == reply.ThreadId).First(c => c.Id == reply.ThreadId);
 
-        <p>@Html.ActionLink(@thread2.Title, "ViewThread", new { controller = "Thread", action = "ViewThread", id = @thread2.Id })</p>
-        <p><h5>@reply.Name</h5></p><br/>
-        
+        <p>@Html.ActionLink(thread2.Title, "ViewThread", new {controller = "Thread", action = "ViewThread", id = thread2.Id})</p>
+        <p>
+            <h5>@reply.Name</h5>
+        </p>
+        <br/>
     }
 }
 else

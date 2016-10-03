@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
@@ -12,7 +10,7 @@ namespace MyWebsite.Controllers
     public class CommentController : Controller
     {
         //Declaring variable for use with and access to DBSets
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CommentController()
         {
@@ -23,7 +21,7 @@ namespace MyWebsite.Controllers
         {
             _context.Dispose();
         }
-        
+
         //This action records ratings on the specified reply, determined by if the up or down arrow was clicked.
         public ActionResult ReplyRating(int id, string arrow)
         {
@@ -34,14 +32,12 @@ namespace MyWebsite.Controllers
 
             if (arrow == "up")
                 reply.Rating++;
-            if (arrow == "down" && reply.Rating > 0)
-            {
+            if ((arrow == "down") && (reply.Rating > 0))
                 reply.Rating--;
-            }
 
             _context.SaveChanges();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 Threads = thread,
                 RepliesList = replyList,
@@ -66,7 +62,7 @@ namespace MyWebsite.Controllers
             var user = _context.DbUsers.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
             if (user == null)
             {
-                var newUser = new User() { Name = ControllerContext.HttpContext.User.Identity.Name };
+                var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
                 _context.DbUsers.Add(newUser);
             }
 
@@ -77,20 +73,16 @@ namespace MyWebsite.Controllers
             _context.Replies.AddOrUpdate(test);
             _context.SaveChanges();
 
-            var var1 = (submit).ToString("000");
+            var var1 = submit.ToString("000");
             var var2 = reply.Replies.Id;
             var var3 = test.Key;
             var format = "";
             if (reply.Replies.Tier == 1)
-            {
                 format = var1 + var2;
-            }
 
             if (reply.Replies.Tier > 1)
-            {
                 format = var3 + var2;
-            }
-           
+
             reply.Replies.Key = format;
             _context.Replies.AddOrUpdate(reply.Replies);
             _context.SaveChanges();
@@ -101,7 +93,7 @@ namespace MyWebsite.Controllers
             var replyList = _context.Replies.Where(c => c.ThreadId == reply.Threads.Id);
             var replyActualList = _context.Replies.Where(c => c.ThreadId == reply.Threads.Id).ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 Threads = thread,
                 RepliesList = replyList,
@@ -126,7 +118,7 @@ namespace MyWebsite.Controllers
             var user = _context.DbUsers.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
             if (user == null)
             {
-                var newUser = new User() { Name = ControllerContext.HttpContext.User.Identity.Name };
+                var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
                 _context.DbUsers.Add(newUser);
             }
 
@@ -141,7 +133,7 @@ namespace MyWebsite.Controllers
             var replyList = _context.Replies.Where(c => c.ThreadId == thread.Id);
             var replyActualList = _context.Replies.Where(c => c.ThreadId == thread.Id).ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 Threads = thread,
                 RepliesList = replyList,

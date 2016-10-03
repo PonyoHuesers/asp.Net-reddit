@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace MyWebsite.Models
 {
@@ -23,6 +20,4 @@ namespace MyWebsite.Models
         public int downvoteCount { get; set; }
         public int Used { get; set; }
     }
-    
-    
 }

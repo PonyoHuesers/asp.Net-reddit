@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
@@ -11,7 +8,7 @@ namespace MyWebsite.Controllers
     public class HomeController : Controller
     {
         //Declaring variable for use with and access to DBSets
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public HomeController()
         {
@@ -35,7 +32,7 @@ namespace MyWebsite.Controllers
         {
             var threads = _context.Threads.ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threads
             };
@@ -49,7 +46,7 @@ namespace MyWebsite.Controllers
         {
             var threads = _context.Threads.ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threads
             };
@@ -63,7 +60,7 @@ namespace MyWebsite.Controllers
         {
             var threads = _context.Threads.ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threads
             };
@@ -77,7 +74,7 @@ namespace MyWebsite.Controllers
         {
             var threads = _context.Threads.ToList();
 
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threads
             };

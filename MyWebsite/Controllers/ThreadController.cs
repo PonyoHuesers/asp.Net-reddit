@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
 
@@ -11,7 +8,7 @@ namespace MyWebsite.Controllers
 {
     public class ThreadController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ThreadController()
         {
@@ -32,39 +29,39 @@ namespace MyWebsite.Controllers
             var user = _context.DbUsers.SingleOrDefault(c => c.Name == creator);
             if (user == null)
             {
-                var newUser = new User() {Name = creator};
+                var newUser = new User {Name = creator};
                 _context.DbUsers.Add(newUser);
             }
-               
-           _context.Threads.Add(thread);
-           _context.SaveChanges();
+
+            _context.Threads.Add(thread);
+            _context.SaveChanges();
 
             var threadList = _context.Threads.ToList();
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threadList
             };
 
-           return View("~/Views/Home/Hot.cshtml",view);
+            return View("~/Views/Home/Hot.cshtml", view);
         }
 
         [AllowAnonymous]
         public ActionResult ViewThread(int id)
         {
             var thread = _context.Threads.SingleOrDefault(c => c.Id == id);
-           var replyList = _context.Replies.Where(c => c.ThreadId == id);
+            var replyList = _context.Replies.Where(c => c.ThreadId == id);
             var replyActualList = _context.Replies.Where(c => c.ThreadId == id).ToList();
 
             if (thread == null)
                 return HttpNotFound();
 
-            var viewModel = new NewThreadViewModel()
+            var viewModel = new NewThreadViewModel
             {
                 Threads = thread,
                 RepliesList = replyList,
                 RepliesActualList = replyActualList
             };
-            
+
             return View(viewModel);
         }
 
@@ -77,15 +74,15 @@ namespace MyWebsite.Controllers
                 thread.Rating++;
                 thread.upvoteCount++;
             }
-                
-            if (arrow == "down" && thread.Rating > 0)
+
+            if ((arrow == "down") && (thread.Rating > 0))
             {
                 thread.Rating--;
                 thread.downvoteCount++;
             }
 
             var threadList = _context.Threads.ToList();
-            var view = new NewThreadViewModel()
+            var view = new NewThreadViewModel
             {
                 ThreadList = threadList
             };
@@ -102,7 +99,7 @@ namespace MyWebsite.Controllers
             if (location == "Controversial")
                 return View("~/Views/Home/Controversial.cshtml", view);
 
-            return View("~/Views/Home/Hot.cshtml",view);
+            return View("~/Views/Home/Hot.cshtml", view);
         }
     }
 }

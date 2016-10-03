@@ -1,18 +1,17 @@
+using System.Data.Entity.Migrations;
+
 namespace MyWebsite.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class ChangeThreadIdInCommentToInt : DbMigration
     {
         public override void Up()
         {
             DropForeignKey("dbo.Comments", "ThreadId_Id", "dbo.Threads");
-            DropIndex("dbo.Comments", new[] { "ThreadId_Id" });
-            AddColumn("dbo.Comments", "ThreadId", c => c.Int(nullable: false));
+            DropIndex("dbo.Comments", new[] {"ThreadId_Id"});
+            AddColumn("dbo.Comments", "ThreadId", c => c.Int(false));
             DropColumn("dbo.Comments", "ThreadId_Id");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Comments", "ThreadId_Id", c => c.Int());
