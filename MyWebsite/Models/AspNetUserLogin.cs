@@ -12,16 +12,12 @@ namespace MyWebsite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Reply
+    public partial class AspNetUserLogin
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int ThreadId { get; set; }
-        public int Rating { get; set; }
-        public string Creator { get; set; }
-        public int Tier { get; set; }
-        public System.DateTime Created { get; set; }
-        public string Key { get; set; }
-        public int Used { get; set; }
+        public string LoginProvider { get; set; }
+        public string ProviderKey { get; set; }
+        public string UserId { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

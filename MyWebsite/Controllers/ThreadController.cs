@@ -8,16 +8,15 @@ namespace MyWebsite.Controllers
 {
     public class ThreadController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
+        private RedditEntities redditDB;
         public ThreadController()
         {
-            _context = new ApplicationDbContext();
+            redditDB = new RedditEntities();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            redditDB.Dispose();
         }
 
         [HttpPost]
@@ -26,17 +25,17 @@ namespace MyWebsite.Controllers
             var creator = ControllerContext.HttpContext.User.Identity.Name;
             thread.Creator = creator;
             thread.Created = DateTime.Now;
-            var user = _context.DbUsers.SingleOrDefault(c => c.Name == creator);
+            var user = redditDB.Users.SingleOrDefault(c => c.Name == creator);
             if (user == null)
             {
                 var newUser = new User {Name = creator};
-                _context.DbUsers.Add(newUser);
+                redditDB.Users.Add(newUser);
             }
 
-            _context.Threads.Add(thread);
-            _context.SaveChanges();
+            redditDB.Threads.Add(thread);
+            redditDB.SaveChanges();
 
-            var threadList = _context.Threads.ToList();
+            var threadList = redditDB.Threads.ToList();
             var view = new NewThreadViewModel
             {
                 ThreadList = threadList
@@ -48,9 +47,9 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult ViewThread(int id)
         {
-            var thread = _context.Threads.SingleOrDefault(c => c.Id == id);
-            var replyList = _context.Replies.Where(c => c.ThreadId == id);
-            var replyActualList = _context.Replies.Where(c => c.ThreadId == id).ToList();
+            var thread = redditDB.Threads.SingleOrDefault(c => c.Id == id);
+            var replyList = redditDB.Replies.Where(c => c.ThreadId == id);
+            var replyActualList = redditDB.Replies.Where(c => c.ThreadId == id).ToList();
 
             if (thread == null)
                 return HttpNotFound();
@@ -68,7 +67,7 @@ namespace MyWebsite.Controllers
         //Rates threads.
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
-            var thread = _context.Threads.Single(c => c.Id == id);
+            var thread = redditDB.Threads.Single(c => c.Id == id);
 
             if (arrow == "up")
             {
@@ -82,14 +81,14 @@ namespace MyWebsite.Controllers
                 thread.downvoteCount++;
             }
 
-            var threadList = _context.Threads.ToList();
+            var threadList = redditDB.Threads.ToList();
             var view = new NewThreadViewModel
             {
                 ThreadList = threadList
             };
 
 
-            _context.SaveChanges();
+            redditDB.SaveChanges();
 
             if (location == "New")
                 return View("~/Views/Home/New.cshtml", view);

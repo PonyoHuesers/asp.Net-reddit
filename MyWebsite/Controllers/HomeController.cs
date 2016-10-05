@@ -8,16 +8,15 @@ namespace MyWebsite.Controllers
     public class HomeController : Controller
     {
         //Declaring variable for use with and access to DBSets
-        private readonly ApplicationDbContext _context;
-
+        private RedditEntities redditDB;
         public HomeController()
         {
-            _context = new ApplicationDbContext();
+            redditDB = new RedditEntities();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
+            redditDB.Dispose();
         }
 
         //An action redirects to Form which returns its view, where the threads are created and submitted.
@@ -30,7 +29,7 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Hot()
         {
-            var threads = _context.Threads.ToList();
+            var threads = redditDB.Threads.ToList();
 
             var view = new NewThreadViewModel
             {
@@ -44,7 +43,7 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult New()
         {
-            var threads = _context.Threads.ToList();
+            var threads = redditDB.Threads.ToList();
 
             var view = new NewThreadViewModel
             {
@@ -58,7 +57,7 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Rising()
         {
-            var threads = _context.Threads.ToList();
+            var threads = redditDB.Threads.ToList();
 
             var view = new NewThreadViewModel
             {
@@ -72,7 +71,7 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Controversial()
         {
-            var threads = _context.Threads.ToList();
+            var threads = redditDB.Threads.ToList();
 
             var view = new NewThreadViewModel
             {
