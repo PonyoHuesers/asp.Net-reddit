@@ -9,7 +9,7 @@ namespace MyWebsite.Controllers
 {
     public class CommentController : Controller
     {
-        //Declaring variable for use with and access to DBSets
+        //Declaring redditDB as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
         private RedditEntities redditDB;
         public CommentController()
         {
@@ -46,13 +46,14 @@ namespace MyWebsite.Controllers
             return View("~/Views/Thread/ViewThread.cshtml", view);
         }
 
-        //This action saves a comment when clicking the reply link on-side each comment in the thread.
+        
         [HttpPost]
+        //This action saves a comment when clicking the reply link on-side each comment in the thread.
         public ActionResult SaveReplyOnComment(NewThreadViewModel reply, int submit)
         {
-            var test = redditDB.Replies.Single(c => c.Id == submit); //parent of comment
-            var i = test.Tier + 1;
-            reply.Replies.Tier = reply.Replies.Tier + i;
+            var parentOfReply = redditDB.Replies.Single(c => c.Id == submit); 
+            var tierAfterParent = parentOfReply.Tier + 1;
+            reply.Replies.Tier = reply.Replies.Tier + tierAfterParent;
 
             reply.Replies.Created = DateTime.Now;
             reply.Replies.Creator = ControllerContext.HttpContext.User.Identity.Name;
@@ -64,29 +65,34 @@ namespace MyWebsite.Controllers
                 var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
                 redditDB.Users.Add(newUser);
             }
-
-
+            
             redditDB.Replies.Add(reply.Replies);
             redditDB.SaveChanges();
 
-            redditDB.Replies.AddOrUpdate(test);
+            redditDB.Replies.AddOrUpdate(parentOfReply);
             redditDB.SaveChanges();
 
-            var var1 = submit.ToString("000");
-            var var2 = reply.Replies.Id;
-            var var3 = test.Key;
-            var format = "";
-            if (reply.Replies.Tier == 1)
-                format = var1 + var2;
+            var currentPKey = reply.Replies.Id;
+            int digitsOfPKey = (currentPKey == 0) ? 1 : (int)Math.Log10(currentPKey) + 1;
+            string length = new string('0', digitsOfPKey);
 
-            if (reply.Replies.Tier > 1)
-                format = var3 + var2;
+            //Where length = "0", "00", "000", etc. based on digitsofPKey value.
+
+            var var1 = submit.ToString(length); 
+            var var2 = reply.Replies.Id;
+            var var3 = parentOfReply.Key;
+            var format = "";
+            if (reply.Replies.Tier == 1) //This implies that you just concatenate the root comment id
+                format = var1 + var2;    //with the current reply's id to form the key.
+
+            if (reply.Replies.Tier > 1)  //Any deeper than the first reply on the base comment and you
+                format = var3 + var2;    //concatenate the path of the key to the current id being used.
 
             reply.Replies.Key = format;
             redditDB.Replies.AddOrUpdate(reply.Replies);
             redditDB.SaveChanges();
 
-            ModelState.Clear();
+            ModelState.Clear();          //This clears the comment and reply text boxes after submittals.
 
             var thread = redditDB.Threads.Single(c => c.Id == reply.Threads.Id);
             var replyList = redditDB.Replies.Where(c => c.ThreadId == reply.Threads.Id);
@@ -103,8 +109,9 @@ namespace MyWebsite.Controllers
             return View("~/Views/Thread/ViewThread.cshtml", view);
         }
 
-        //This action saves the root comment in each thread view
+        
         [HttpPost]
+        //This action saves the root comment in each thread view.
         public ActionResult SaveComment(NewThreadViewModel comment)
         {
             comment.Replies.Creator = ControllerContext.HttpContext.User.Identity.Name;
@@ -120,13 +127,12 @@ namespace MyWebsite.Controllers
                 var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
                 redditDB.Users.Add(newUser);
             }
-
-            //previously: comment.Replies.Key = comment.Replies.Id
+            
             comment.Replies.Key = comment.Replies.Id.ToString();
             redditDB.Replies.AddOrUpdate(comment.Replies);
             redditDB.SaveChanges();
 
-            ModelState.Clear();
+            ModelState.Clear();          //This clears the comment and reply text boxes after submittals.
 
             var thread = redditDB.Threads.Single(c => c.Id == comment.Replies.ThreadId);
             var replyList = redditDB.Replies.Where(c => c.ThreadId == thread.Id);

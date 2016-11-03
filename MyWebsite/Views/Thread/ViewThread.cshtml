@@ -59,22 +59,22 @@
     {
         var modifiedReplies = x.Where(c => c.Key.StartsWith(oink.Key));
 
-        foreach (var kk in modifiedReplies)
+        foreach (var specificReply in modifiedReplies)
         {
-            var tier2 = kk.Tier*40;
+            var tier2 = specificReply.Tier*40;
             var numb2 = tier2 + "px";
 
             <p>
                 <div style="margin-top: -7px; padding-left: @numb2;">
-                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "up", kk.Id})>
+                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "up", specificReply.Id})>
                         <i style='font-size: 24px' class='fa'>&uarr;</i>
                     </a>
-                    @kk.Rating
-                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "down", kk.Id})>
+                    @specificReply.Rating
+                    <a href=@Url.Action("ReplyRating", "Comment", new {arrow = "down", specificReply.Id})>
                         <i style='font-size: 24px' class='fa'>&darr;</i>
                     </a>
 
-                    <a href=@Url.Action("ViewUserPage", "User", new {creatorId = kk.Creator})>@kk.Creator</a> ~
+                    <a href=@Url.Action("ViewUserPage", "User", new {creatorId = specificReply.Creator})>@specificReply.Creator</a> ~
                     <a onclick="myFunction" href="javascript:myFunction(@commentId)">Reply</a> <br/>
 
                     <p>
@@ -84,7 +84,7 @@
                                     padding-bottom: 10px; 
                                     padding-left: 42px;">
                             @{
-                                var date2 = DateTime.Now.Subtract(kk.Created);
+                                var date2 = DateTime.Now.Subtract(specificReply.Created);
                                 string days2 = " days, ";
                                 string hours2 = " hours and";
                                 string minutes2 = "minutes";
@@ -107,7 +107,7 @@
                         </div>
                     </p>
 
-                    <p style="padding-bottom: 15px; padding-left: 42px;">@kk.Name</p>
+                    <p style="padding-bottom: 15px; padding-left: 42px;">@specificReply.Name</p>
 
 
                     <div style="display: none; margin-top: 7px; padding-left: 42px;" id=@commentId>
@@ -118,7 +118,7 @@
                             <br/>
 
                             @Html.HiddenFor(c => c.Threads.Id)
-                            <button name="submit" type="submit" id=@commentId value=@kk.Id class="btn btn-primary">Save</button>
+                            <button name="submit" type="submit" id=@commentId value=@specificReply.Id class="btn btn-primary">Save</button>
                         }
                         @{ commentId = commentId + 1; }
                     </div>

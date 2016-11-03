@@ -8,6 +8,7 @@ namespace MyWebsite.Controllers
 {
     public class ThreadController : Controller
     {
+        //Declaring redditDB as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
         private RedditEntities redditDB;
         public ThreadController()
         {
@@ -20,6 +21,9 @@ namespace MyWebsite.Controllers
         }
 
         [HttpPost]
+        //This action is where the Form view in HomeController submits to.
+        //The information from the new thread is passed here where the homepage is loaded
+        //with the new thread in the list of threads.
         public ActionResult CreateThread(Thread thread)
         {
             var creator = ControllerContext.HttpContext.User.Identity.Name;
@@ -45,12 +49,13 @@ namespace MyWebsite.Controllers
         }
 
         [AllowAnonymous]
+        //This action shows all the comments in any of the selected threads.
         public ActionResult ViewThread(int id)
         {
             var thread = redditDB.Threads.SingleOrDefault(c => c.Id == id);
             var replyList = redditDB.Replies.Where(c => c.ThreadId == id);
             var replyActualList = redditDB.Replies.Where(c => c.ThreadId == id).ToList();
-
+            
             if (thread == null)
                 return HttpNotFound();
 
@@ -64,7 +69,8 @@ namespace MyWebsite.Controllers
             return View(viewModel);
         }
 
-        //Rates threads.
+        //This action gives the rated thread a higher or lower rating, depending on
+        //whether it was upvoted or downvoted. It returns the page it was on when you voted.
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
             var thread = redditDB.Threads.Single(c => c.Id == id);

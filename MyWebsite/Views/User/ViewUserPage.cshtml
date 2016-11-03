@@ -4,14 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Welcome to @Model.UserObject.Name's Activity!</h2><br/><br/>
-@{
-    var threadList = Model.ThreadList;
-}
-
+<h2>Welcome to @Model.PlaceHolder's Activity!</h2><br/><br/>
 <h2>
     <u>Threads</u>
 </h2>
+
+@{var threadList = Model.ThreadList;}
+
 @if (threadList.Any(c => c.Creator == Model.UserObject.Name))
 {
     foreach (var thread in threadList)

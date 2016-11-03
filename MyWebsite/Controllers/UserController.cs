@@ -31,7 +31,8 @@ namespace MyWebsite.Controllers
                 ThreadList = threadList,
                 ThreadsActualList = threadActualList,
                 RepliesList = replyList,
-                UserObject = user
+                UserObject = user,
+                PlaceHolder = creatorId
             };
 
             return View(view);
