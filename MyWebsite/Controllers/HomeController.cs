@@ -7,7 +7,7 @@ using MyWebsite.ViewModels;
 //Finished and deployed to Azure: 10/5/2016
 
     //reminder to remove custom error messages in web.config
-    //test
+    //test 2
 
 namespace MyWebsite.Controllers
 {
