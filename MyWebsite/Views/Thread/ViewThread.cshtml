@@ -38,7 +38,7 @@
 @using (Html.BeginForm("SaveComment", "Comment"))
 {
     <div class="form-group">
-        @Html.TextAreaFor(c => c.Replies.Name, new {@class = "wide"})
+        @Html.TextAreaFor(c => c.Comments.Name, new {@class = "wide"})
     </div>
 
     @Html.HiddenFor(c => c.Threads.Id)
@@ -114,7 +114,7 @@
 
                         @using (Html.BeginForm("SaveReplyOnComment", "Comment"))
                         {
-                            @Html.TextAreaFor(c => c.Replies.Name, new {style = "width:250px; height:85px;"})
+                            @Html.TextAreaFor(c => c.Comments.Name, new {style = "width:250px; height:85px;"})
                             <br/>
 
                             @Html.HiddenFor(c => c.Threads.Id)

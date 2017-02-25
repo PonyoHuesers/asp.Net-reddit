@@ -9,32 +9,32 @@ namespace MyWebsite.Controllers
 {
     public class CommentController : Controller
     {
-        //Declaring redditDB as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
-        private RedditEntities redditDB;
+        //Declaring _context as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
+        private Context _context;
         public CommentController()
         {
-            redditDB = new RedditEntities();
+            _context = new Context();
         }
 
         protected override void Dispose(bool disposing)
         {
-            redditDB.Dispose();
+            _context.Dispose();
         }
 
         //This action records ratings on the specified reply, determined by if the up or down arrow was clicked.
         public ActionResult ReplyRating(int id, string arrow)
         {
-            var reply = redditDB.Replies.Single(c => c.Id == id);
-            var thread = redditDB.Threads.Single(c => c.Id == reply.ThreadId);
-            var replyList = redditDB.Replies.Where(c => c.ThreadId == thread.Id);
-            var replyActualList = redditDB.Replies.Where(c => c.ThreadId == thread.Id).ToList();
+            var reply = _context.Comments.Single(c => c.Id == id);
+            var thread = _context.Threads.Single(c => c.Id == reply.ThreadId);
+            var replyList = _context.Comments.Where(c => c.ThreadId == thread.Id);
+            var replyActualList = _context.Comments.Where(c => c.ThreadId == thread.Id).ToList();
 
             if (arrow == "up")
                 reply.Rating++;
             if ((arrow == "down") && (reply.Rating > 0))
                 reply.Rating--;
 
-            redditDB.SaveChanges();
+            _context.SaveChanges();
 
             var view = new NewThreadViewModel
             {
@@ -51,52 +51,52 @@ namespace MyWebsite.Controllers
         //This action saves a comment when clicking the reply link on-side each comment in the thread.
         public ActionResult SaveReplyOnComment(NewThreadViewModel reply, int submit)
         {
-            var parentOfReply = redditDB.Replies.Single(c => c.Id == submit); 
+            var parentOfReply = _context.Comments.Single(c => c.Id == submit); 
             var tierAfterParent = parentOfReply.Tier + 1;
-            reply.Replies.Tier = reply.Replies.Tier + tierAfterParent;
+            reply.Comments.Tier = reply.Comments.Tier + tierAfterParent;
 
-            reply.Replies.Created = DateTime.Now;
-            reply.Replies.Creator = ControllerContext.HttpContext.User.Identity.Name;
-            reply.Replies.ThreadId = reply.Threads.Id;
+            reply.Comments.Created = DateTime.Now;
+            //put back in: reply.Comments.Username.Name = ControllerContext.HttpContext.User.Identity.Name;
+            reply.Comments.ThreadId = reply.Threads.Id;
 
-            var user = redditDB.Users.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
+            var user = _context.Usernames.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
             if (user == null)
             {
-                var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
-                redditDB.Users.Add(newUser);
+                var newUser = new Username {Name = ControllerContext.HttpContext.User.Identity.Name};
+                _context.Usernames.Add(newUser);
             }
             
-            redditDB.Replies.Add(reply.Replies);
-            redditDB.SaveChanges();
+            _context.Comments.Add(reply.Comments);
+            _context.SaveChanges();
 
-            redditDB.Replies.AddOrUpdate(parentOfReply);
-            redditDB.SaveChanges();
+            _context.Comments.AddOrUpdate(parentOfReply);
+            _context.SaveChanges();
 
-            var currentPKey = reply.Replies.Id;
+            var currentPKey = reply.Comments.Id;
             int digitsOfPKey = (currentPKey == 0) ? 1 : (int)Math.Log10(currentPKey) + 1;
             string length = new string('0', digitsOfPKey);
 
             //Where length = "0", "00", "000", etc. based on digitsofPKey value.
 
             var var1 = submit.ToString(length); 
-            var var2 = reply.Replies.Id;
+            var var2 = reply.Comments.Id;
             var var3 = parentOfReply.Key;
             var format = "";
-            if (reply.Replies.Tier == 1) //This implies that you just concatenate the root comment id
+            if (reply.Comments.Tier == 1) //This implies that you just concatenate the root comment id
                 format = var1 + var2;    //with the current reply's id to form the key.
 
-            if (reply.Replies.Tier > 1)  //Any deeper than the first reply on the base comment and you
+            if (reply.Comments.Tier > 1)  //Any deeper than the first reply on the base comment and you
                 format = var3 + var2;    //concatenate the path of the key to the current id being used.
 
-            reply.Replies.Key = format;
-            redditDB.Replies.AddOrUpdate(reply.Replies);
-            redditDB.SaveChanges();
+            reply.Comments.Key = format;
+            _context.Comments.AddOrUpdate(reply.Comments);
+            _context.SaveChanges();
 
             ModelState.Clear();          //This clears the comment and reply text boxes after submittals.
 
-            var thread = redditDB.Threads.Single(c => c.Id == reply.Threads.Id);
-            var replyList = redditDB.Replies.Where(c => c.ThreadId == reply.Threads.Id);
-            var replyActualList = redditDB.Replies.Where(c => c.ThreadId == reply.Threads.Id).ToList();
+            var thread = _context.Threads.Single(c => c.Id == reply.Threads.Id);
+            var replyList = _context.Comments.Where(c => c.ThreadId == reply.Threads.Id);
+            var replyActualList = _context.Comments.Where(c => c.ThreadId == reply.Threads.Id).ToList();
 
             var view = new NewThreadViewModel
             {
@@ -114,29 +114,29 @@ namespace MyWebsite.Controllers
         //This action saves the root comment in each thread view.
         public ActionResult SaveComment(NewThreadViewModel comment)
         {
-            comment.Replies.Creator = ControllerContext.HttpContext.User.Identity.Name;
-            comment.Replies.ThreadId = comment.Threads.Id;
-            comment.Replies.Tier = 0;
-            comment.Replies.Created = DateTime.Now;
-            redditDB.Replies.Add(comment.Replies);
-            redditDB.SaveChanges();
+            //put back in: comment.Comments.Username.Name = ControllerContext.HttpContext.User.Identity.Name;
+            comment.Comments.ThreadId = comment.Threads.Id;
+            comment.Comments.Tier = 0;
+            comment.Comments.Created = DateTime.Now;
+            _context.Comments.Add(comment.Comments);
+            _context.SaveChanges();
 
-            var user = redditDB.Users.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
+            var user = _context.Usernames.SingleOrDefault(c => c.Name == ControllerContext.HttpContext.User.Identity.Name);
             if (user == null)
             {
-                var newUser = new User {Name = ControllerContext.HttpContext.User.Identity.Name};
-                redditDB.Users.Add(newUser);
+                var newUser = new Username {Name = ControllerContext.HttpContext.User.Identity.Name};
+                _context.Usernames.Add(newUser);
             }
             
-            comment.Replies.Key = comment.Replies.Id.ToString();
-            redditDB.Replies.AddOrUpdate(comment.Replies);
-            redditDB.SaveChanges();
+            comment.Comments.Key = comment.Comments.Id.ToString();
+            _context.Comments.AddOrUpdate(comment.Comments);
+            _context.SaveChanges();
 
             ModelState.Clear();          //This clears the comment and reply text boxes after submittals.
 
-            var thread = redditDB.Threads.Single(c => c.Id == comment.Replies.ThreadId);
-            var replyList = redditDB.Replies.Where(c => c.ThreadId == thread.Id);
-            var replyActualList = redditDB.Replies.Where(c => c.ThreadId == thread.Id).ToList();
+            var thread = _context.Threads.Single(c => c.Id == comment.Comments.ThreadId);
+            var replyList = _context.Comments.Where(c => c.ThreadId == thread.Id);
+            var replyActualList = _context.Comments.Where(c => c.ThreadId == thread.Id).ToList();
 
             var view = new NewThreadViewModel
             {

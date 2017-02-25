@@ -1,5 +1,6 @@
 ﻿@model MyWebsite.ViewModels.NewThreadViewModel
 
+
 @{
     ViewBag.Title = "Hot";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,21 +11,21 @@
         <div class="col-xs-12">
 
 
-            @foreach (var oink in Model.ThreadList.OrderByDescending(c => c.Rating))
+            @foreach (var thread in Model.ThreadList.OrderByDescending(c => c.Rating))
             {
                 <p>
-                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", oink.Id, location = "Hot"})>
+                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", thread.Id, location = "Hot"})>
                         <i style='font-size: 24px' class='fa'>&uarr;</i>
                     </a>
-                    @oink.Rating
-                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", oink.Id, location = "Hot"})>
+                    @thread.Rating
+                    <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", thread.Id, location = "Hot"})>
                         <i style='font-size: 24px' class='fa'>&darr;</i>
                     </a>
-                    - @Html.ActionLink(oink.Title, "ViewThread", new {controller = "Thread", action = "ViewThread", id = oink.Id})
+                    - @Html.ActionLink(thread.Name, "ViewThread", new {controller = "Thread", action = "ViewThread", id = thread.Id})
                     <p>
                         <div class="thread-creation">
                             @{
-                                var date = DateTime.Now.Subtract(oink.Created);
+                                var date = DateTime.Now.Subtract(thread.Created);
                                 var days = " days, ";
                                 var hours = " hours and";
                                 var minutes = "minutes";
@@ -43,7 +44,7 @@
                                 ;
                                 @hours
                                 ;
-                            } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = oink.Creator})>@oink.Creator</a>.
+                            } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = thread.Username.Name})>@thread.Username.Name</a>.
                         </div>
                     </p>
                 </p>

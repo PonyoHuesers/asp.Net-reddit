@@ -8,16 +8,16 @@ namespace MyWebsite.Controllers
 {
     public class ThreadController : Controller
     {
-        //Declaring redditDB as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
-        private RedditEntities redditDB;
+        //Declaring _context as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
+        private Context _context;
         public ThreadController()
         {
-            redditDB = new RedditEntities();
+            _context = new Context();
         }
 
         protected override void Dispose(bool disposing)
         {
-            redditDB.Dispose();
+            _context.Dispose();
         }
 
         [HttpPost]
@@ -27,19 +27,19 @@ namespace MyWebsite.Controllers
         public ActionResult CreateThread(Thread thread)
         {
             var creator = ControllerContext.HttpContext.User.Identity.Name;
-            thread.Creator = creator;
+            //put back in: thread.Username.Name = creator;
             thread.Created = DateTime.Now;
-            var user = redditDB.Users.SingleOrDefault(c => c.Name == creator);
+            var user = _context.Usernames.SingleOrDefault(c => c.Name == creator);
             if (user == null)
             {
-                var newUser = new User {Name = creator};
-                redditDB.Users.Add(newUser);
+                var newUser = new Username {Name = creator};
+                _context.Usernames.Add(newUser);
             }
 
-            redditDB.Threads.Add(thread);
-            redditDB.SaveChanges();
+            _context.Threads.Add(thread);
+            _context.SaveChanges();
 
-            var threadList = redditDB.Threads.ToList();
+            var threadList = _context.Threads.ToList();
             var view = new NewThreadViewModel
             {
                 ThreadList = threadList
@@ -52,9 +52,9 @@ namespace MyWebsite.Controllers
         //This action shows all the comments in any of the selected threads.
         public ActionResult ViewThread(int id)
         {
-            var thread = redditDB.Threads.SingleOrDefault(c => c.Id == id);
-            var replyList = redditDB.Replies.Where(c => c.ThreadId == id);
-            var replyActualList = redditDB.Replies.Where(c => c.ThreadId == id).ToList();
+            var thread = _context.Threads.SingleOrDefault(c => c.Id == id);
+            var replyList = _context.Comments.Where(c => c.ThreadId == id);
+            var replyActualList = _context.Comments.Where(c => c.ThreadId == id).ToList();
             
             if (thread == null)
                 return HttpNotFound();
@@ -73,28 +73,28 @@ namespace MyWebsite.Controllers
         //whether it was upvoted or downvoted. It returns the page it was on when you voted.
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
-            var thread = redditDB.Threads.Single(c => c.Id == id);
+            var thread = _context.Threads.Single(c => c.Id == id);
 
             if (arrow == "up")
             {
                 thread.Rating++;
-                thread.upvoteCount++;
+                thread.UpvoteCount++;
             }
 
             if ((arrow == "down") && (thread.Rating > 0))
             {
                 thread.Rating--;
-                thread.downvoteCount++;
+                thread.DownvoteCount++;
             }
 
-            var threadList = redditDB.Threads.ToList();
+            var threadList = _context.Threads.ToList();
             var view = new NewThreadViewModel
             {
                 ThreadList = threadList
             };
 
 
-            redditDB.SaveChanges();
+            _context.SaveChanges();
 
             if (location == "New")
                 return View("~/Views/Home/New.cshtml", view);

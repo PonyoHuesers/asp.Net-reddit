@@ -198,217 +198,24 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Data\Context.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ThreadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data\ThreadRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609230103034_InitialMigration.cs" />
-    <Compile Include="Migrations\201609230103034_InitialMigration.Designer.cs">
-      <DependentUpon>201609230103034_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609230206439_AddUserThreadCommentModels.cs" />
-    <Compile Include="Migrations\201609230206439_AddUserThreadCommentModels.Designer.cs">
-      <DependentUpon>201609230206439_AddUserThreadCommentModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609240111068_AddCommentToThread.cs" />
-    <Compile Include="Migrations\201609240111068_AddCommentToThread.Designer.cs">
-      <DependentUpon>201609240111068_AddCommentToThread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609240206113_AddThreadIdToComments.cs" />
-    <Compile Include="Migrations\201609240206113_AddThreadIdToComments.Designer.cs">
-      <DependentUpon>201609240206113_AddThreadIdToComments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609240214582_ChangeThreadIdInCommentToInt.cs" />
-    <Compile Include="Migrations\201609240214582_ChangeThreadIdInCommentToInt.Designer.cs">
-      <DependentUpon>201609240214582_ChangeThreadIdInCommentToInt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609240220569_AddCommentToThreadModel.cs" />
-    <Compile Include="Migrations\201609240220569_AddCommentToThreadModel.Designer.cs">
-      <DependentUpon>201609240220569_AddCommentToThreadModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609240253120_ChangeCommentInThreadToString.cs" />
-    <Compile Include="Migrations\201609240253120_ChangeCommentInThreadToString.Designer.cs">
-      <DependentUpon>201609240253120_ChangeCommentInThreadToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609241633035_AddRAtingtoThread.cs" />
-    <Compile Include="Migrations\201609241633035_AddRAtingtoThread.Designer.cs">
-      <DependentUpon>201609241633035_AddRAtingtoThread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609241638147_ThreadConstructionDefaultsRatingToZero.cs" />
-    <Compile Include="Migrations\201609241638147_ThreadConstructionDefaultsRatingToZero.Designer.cs">
-      <DependentUpon>201609241638147_ThreadConstructionDefaultsRatingToZero.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609241806247_AddRatingToComment.cs" />
-    <Compile Include="Migrations\201609241806247_AddRatingToComment.Designer.cs">
-      <DependentUpon>201609241806247_AddRatingToComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609241838432_AddCreatedDateToThread.cs" />
-    <Compile Include="Migrations\201609241838432_AddCreatedDateToThread.Designer.cs">
-      <DependentUpon>201609241838432_AddCreatedDateToThread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609242235559_AddCreatorToThread.cs" />
-    <Compile Include="Migrations\201609242235559_AddCreatorToThread.Designer.cs">
-      <DependentUpon>201609242235559_AddCreatorToThread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609242343534_AddCommentAndThreadIdToUser.cs" />
-    <Compile Include="Migrations\201609242343534_AddCommentAndThreadIdToUser.Designer.cs">
-      <DependentUpon>201609242343534_AddCommentAndThreadIdToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609251656560_AddCreatorToComment.cs" />
-    <Compile Include="Migrations\201609251656560_AddCreatorToComment.Designer.cs">
-      <DependentUpon>201609251656560_AddCreatorToComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609252313293_CreateReplyModel.cs" />
-    <Compile Include="Migrations\201609252313293_CreateReplyModel.Designer.cs">
-      <DependentUpon>201609252313293_CreateReplyModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609252323132_AddReplyToDBContext.cs" />
-    <Compile Include="Migrations\201609252323132_AddReplyToDBContext.Designer.cs">
-      <DependentUpon>201609252323132_AddReplyToDBContext.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609260136160_AddLocatorToComment.cs" />
-    <Compile Include="Migrations\201609260136160_AddLocatorToComment.Designer.cs">
-      <DependentUpon>201609260136160_AddLocatorToComment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609260313210_AddTierToReply.cs" />
-    <Compile Include="Migrations\201609260313210_AddTierToReply.Designer.cs">
-      <DependentUpon>201609260313210_AddTierToReply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609261251299_AddNullableReplyIdToREply.cs" />
-    <Compile Include="Migrations\201609261251299_AddNullableReplyIdToREply.Designer.cs">
-      <DependentUpon>201609261251299_AddNullableReplyIdToREply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609261305347_AddUsedToReply.cs" />
-    <Compile Include="Migrations\201609261305347_AddUsedToReply.Designer.cs">
-      <DependentUpon>201609261305347_AddUsedToReply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609261426075_AddUpvoteDownvoteCountsToThread.cs" />
-    <Compile Include="Migrations\201609261426075_AddUpvoteDownvoteCountsToThread.Designer.cs">
-      <DependentUpon>201609261426075_AddUpvoteDownvoteCountsToThread.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262059058_ChangeLocatorToCommentIdInCommentModel.cs" />
-    <Compile Include="Migrations\201609262059058_ChangeLocatorToCommentIdInCommentModel.Designer.cs">
-      <DependentUpon>201609262059058_ChangeLocatorToCommentIdInCommentModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262104290_Changed.cs" />
-    <Compile Include="Migrations\201609262104290_Changed.Designer.cs">
-      <DependentUpon>201609262104290_Changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262157197_AddKeyToReply.cs" />
-    <Compile Include="Migrations\201609262157197_AddKeyToReply.Designer.cs">
-      <DependentUpon>201609262157197_AddKeyToReply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262242151_DeleteKeyFromReply.cs" />
-    <Compile Include="Migrations\201609262242151_DeleteKeyFromReply.Designer.cs">
-      <DependentUpon>201609262242151_DeleteKeyFromReply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262259146_deletedKeyAgain.cs" />
-    <Compile Include="Migrations\201609262259146_deletedKeyAgain.Designer.cs">
-      <DependentUpon>201609262259146_deletedKeyAgain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262325201_deletekeyfrothelasttime!.cs" />
-    <Compile Include="Migrations\201609262325201_deletekeyfrothelasttime!.Designer.cs">
-      <DependentUpon>201609262325201_deletekeyfrothelasttime!.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609262326384_AddDoubleKeyTOREPLY!.cs" />
-    <Compile Include="Migrations\201609262326384_AddDoubleKeyTOREPLY!.Designer.cs">
-      <DependentUpon>201609262326384_AddDoubleKeyTOREPLY!.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609271358540_AddUsedToReply1.cs" />
-    <Compile Include="Migrations\201609271358540_AddUsedToReply1.Designer.cs">
-      <DependentUpon>201609271358540_AddUsedToReply1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609271511439_addCreatedToREply.cs" />
-    <Compile Include="Migrations\201609271511439_addCreatedToREply.Designer.cs">
-      <DependentUpon>201609271511439_addCreatedToREply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281052407_SeeyaKeyReplies.cs" />
-    <Compile Include="Migrations\201609281052407_SeeyaKeyReplies.Designer.cs">
-      <DependentUpon>201609281052407_SeeyaKeyReplies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609281054165_ChangeKeyToString.cs" />
-    <Compile Include="Migrations\201609281054165_ChangeKeyToString.Designer.cs">
-      <DependentUpon>201609281054165_ChangeKeyToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609282000226_ChildIdToReplies.cs" />
-    <Compile Include="Migrations\201609282000226_ChildIdToReplies.Designer.cs">
-      <DependentUpon>201609282000226_ChildIdToReplies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609292132554_RemovedChildIdParentIdFromREply.cs" />
-    <Compile Include="Migrations\201609292132554_RemovedChildIdParentIdFromREply.Designer.cs">
-      <DependentUpon>201609292132554_RemovedChildIdParentIdFromREply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609301158132_AddUsedToThreadAndReply.cs" />
-    <Compile Include="Migrations\201609301158132_AddUsedToThreadAndReply.Designer.cs">
-      <DependentUpon>201609301158132_AddUsedToThreadAndReply.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609301451023_ChangeUserNameInIdentityModel.cs" />
-    <Compile Include="Migrations\201609301451023_ChangeUserNameInIdentityModel.Designer.cs">
-      <DependentUpon>201609301451023_ChangeUserNameInIdentityModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609301511360_test.cs" />
-    <Compile Include="Migrations\201609301511360_test.Designer.cs">
-      <DependentUpon>201609301511360_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609301516423_AddUsersToIdentityMOdel.cs" />
-    <Compile Include="Migrations\201609301516423_AddUsersToIdentityMOdel.Designer.cs">
-      <DependentUpon>201609301516423_AddUsersToIdentityMOdel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609302250143_FinalUpdate.cs" />
-    <Compile Include="Migrations\201609302250143_FinalUpdate.Designer.cs">
-      <DependentUpon>201609302250143_FinalUpdate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Reddit.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reddit.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Reddit.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Reddit.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reddit.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Reply.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Table.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Thread.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>Reddit.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Thread.cs" />
+    <Compile Include="Models\Username.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewThreadViewModel.cs" />
@@ -421,29 +228,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Reddit.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Reddit.edmx</DependentUpon>
-      <LastGenOutput>Reddit.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Reddit.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Reddit.edmx</DependentUpon>
-      <LastGenOutput>Reddit.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\Reddit.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Reddit.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Reddit.edmx.diagram">
-      <DependentUpon>Reddit.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\joshua-reddit - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\joshua-reddit - FTP %283%29.pubxml" />
@@ -506,10 +296,10 @@
     <Content Include="Views\Home\Form.cshtml" />
     <Content Include="Views\User\ViewUserPage.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <Content Include="Views\Home\Refactor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Data\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
@@ -519,125 +309,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609230103034_InitialMigration.resx">
-      <DependentUpon>201609230103034_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609230206439_AddUserThreadCommentModels.resx">
-      <DependentUpon>201609230206439_AddUserThreadCommentModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609240111068_AddCommentToThread.resx">
-      <DependentUpon>201609240111068_AddCommentToThread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609240206113_AddThreadIdToComments.resx">
-      <DependentUpon>201609240206113_AddThreadIdToComments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609240214582_ChangeThreadIdInCommentToInt.resx">
-      <DependentUpon>201609240214582_ChangeThreadIdInCommentToInt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609240220569_AddCommentToThreadModel.resx">
-      <DependentUpon>201609240220569_AddCommentToThreadModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609240253120_ChangeCommentInThreadToString.resx">
-      <DependentUpon>201609240253120_ChangeCommentInThreadToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609241633035_AddRAtingtoThread.resx">
-      <DependentUpon>201609241633035_AddRAtingtoThread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609241638147_ThreadConstructionDefaultsRatingToZero.resx">
-      <DependentUpon>201609241638147_ThreadConstructionDefaultsRatingToZero.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609241806247_AddRatingToComment.resx">
-      <DependentUpon>201609241806247_AddRatingToComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609241838432_AddCreatedDateToThread.resx">
-      <DependentUpon>201609241838432_AddCreatedDateToThread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609242235559_AddCreatorToThread.resx">
-      <DependentUpon>201609242235559_AddCreatorToThread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609242343534_AddCommentAndThreadIdToUser.resx">
-      <DependentUpon>201609242343534_AddCommentAndThreadIdToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609251656560_AddCreatorToComment.resx">
-      <DependentUpon>201609251656560_AddCreatorToComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609252313293_CreateReplyModel.resx">
-      <DependentUpon>201609252313293_CreateReplyModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609252323132_AddReplyToDBContext.resx">
-      <DependentUpon>201609252323132_AddReplyToDBContext.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609260136160_AddLocatorToComment.resx">
-      <DependentUpon>201609260136160_AddLocatorToComment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609260313210_AddTierToReply.resx">
-      <DependentUpon>201609260313210_AddTierToReply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609261251299_AddNullableReplyIdToREply.resx">
-      <DependentUpon>201609261251299_AddNullableReplyIdToREply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609261305347_AddUsedToReply.resx">
-      <DependentUpon>201609261305347_AddUsedToReply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609261426075_AddUpvoteDownvoteCountsToThread.resx">
-      <DependentUpon>201609261426075_AddUpvoteDownvoteCountsToThread.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262059058_ChangeLocatorToCommentIdInCommentModel.resx">
-      <DependentUpon>201609262059058_ChangeLocatorToCommentIdInCommentModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262104290_Changed.resx">
-      <DependentUpon>201609262104290_Changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262157197_AddKeyToReply.resx">
-      <DependentUpon>201609262157197_AddKeyToReply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262242151_DeleteKeyFromReply.resx">
-      <DependentUpon>201609262242151_DeleteKeyFromReply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262259146_deletedKeyAgain.resx">
-      <DependentUpon>201609262259146_deletedKeyAgain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262325201_deletekeyfrothelasttime!.resx">
-      <DependentUpon>201609262325201_deletekeyfrothelasttime!.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609262326384_AddDoubleKeyTOREPLY!.resx">
-      <DependentUpon>201609262326384_AddDoubleKeyTOREPLY!.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609271358540_AddUsedToReply1.resx">
-      <DependentUpon>201609271358540_AddUsedToReply1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609271511439_addCreatedToREply.resx">
-      <DependentUpon>201609271511439_addCreatedToREply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281052407_SeeyaKeyReplies.resx">
-      <DependentUpon>201609281052407_SeeyaKeyReplies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609281054165_ChangeKeyToString.resx">
-      <DependentUpon>201609281054165_ChangeKeyToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609282000226_ChildIdToReplies.resx">
-      <DependentUpon>201609282000226_ChildIdToReplies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609292132554_RemovedChildIdParentIdFromREply.resx">
-      <DependentUpon>201609292132554_RemovedChildIdParentIdFromREply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609301158132_AddUsedToThreadAndReply.resx">
-      <DependentUpon>201609301158132_AddUsedToThreadAndReply.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609301451023_ChangeUserNameInIdentityModel.resx">
-      <DependentUpon>201609301451023_ChangeUserNameInIdentityModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609301511360_test.resx">
-      <DependentUpon>201609301511360_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609301516423_AddUsersToIdentityMOdel.resx">
-      <DependentUpon>201609301516423_AddUsersToIdentityMOdel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609302250143_FinalUpdate.resx">
-      <DependentUpon>201609302250143_FinalUpdate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

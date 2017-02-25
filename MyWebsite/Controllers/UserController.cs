@@ -7,32 +7,32 @@ namespace MyWebsite.Controllers
 {
     public class UserController : Controller
     {
-        private RedditEntities redditDB;
+        private Context _context;
         public UserController()
         {
-            redditDB = new RedditEntities();
+            _context = new Context();
         }
 
         protected override void Dispose(bool disposing)
         {
-            redditDB.Dispose();
+            _context.Dispose();
         }
 
         [AllowAnonymous]
-        public ActionResult ViewUserPage(string creatorId)
+        public ActionResult ViewUserPage(string creatorName)
         {
-            var threadList = redditDB.Threads.Where(c => c.Creator == creatorId).OrderByDescending(c => c.Created);
-            var replyList = redditDB.Replies.Where(c => c.Creator == creatorId).OrderByDescending(c => c.Created);
-            var threadActualList = redditDB.Threads.ToList();
-            var user = redditDB.Users.SingleOrDefault(c => c.Name == creatorId);
+           //put back in: var threadList = _context.Threads.Where(c => c.Username.Name == creatorName).OrderByDescending(c => c.Created);
+            //put back in: var replyList = _context.Comments.Where(c => c.Username.Name == creatorName).OrderByDescending(c => c.Created);
+            var threadActualList = _context.Threads.ToList();
+            var user = _context.Usernames.SingleOrDefault(c => c.Name == creatorName);
 
             var view = new NewThreadViewModel
             {
-                ThreadList = threadList,
+                //put back in: ThreadList = threadList,
                 ThreadsActualList = threadActualList,
-                RepliesList = replyList,
+                //put back in: RepliesList = replyList,
                 UserObject = user,
-                PlaceHolder = creatorId
+                PlaceHolder = creatorName
             };
 
             return View(view);

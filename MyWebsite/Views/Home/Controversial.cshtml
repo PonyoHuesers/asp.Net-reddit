@@ -10,24 +10,24 @@
         <div class="col-xs-12">
 
 
-            @foreach (var oink in Model.ThreadList.OrderByDescending(c => c.Rating))
+            @foreach (var thread in Model.ThreadList.OrderByDescending(c => c.Rating))
             {
-                var date = DateTime.Now.Subtract(oink.Created);
+                var date = DateTime.Now.Subtract(thread.Created);
                 var days = " days, ";
                 var hours = " hours and ";
                 var minutes = "minutes";
 
-                if ((oink.upvoteCount > 2) && (oink.downvoteCount > 2))
+                if ((thread.UpvoteCount > 2) && (thread.DownvoteCount > 2))
                 {
                     <p>
-                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", oink.Id, location = "Controversial"})>
+                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", thread.Id, location = "Controversial"})>
                             <i style='font-size: 24px' class='fa'>&uarr;</i>
                         </a>
-                        @oink.Rating
-                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", oink.Id, location = "Controversial"})>
+                        @thread.Rating
+                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", thread.Id, location = "Controversial"})>
                             <i style='font-size: 24px' class='fa'>&darr;</i>
                         </a>
-                        - @Html.ActionLink(oink.Title, "ViewThread", new {controller = "Thread", action = "ViewThread", id = oink.Id})
+                        - @Html.ActionLink(thread.Name, "ViewThread", new {controller = "Thread", action = "ViewThread", id = thread.Id})
                     </p>
                     <p>
                         <div class="thread-creation">
@@ -46,7 +46,7 @@
                                 @hours
                                 ;
                             }
-                            @date.Minutes mintues ago, by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = oink.Creator})>@oink.Creator</a>
+                            @date.Minutes mintues ago, by <a href=@Url.Action("ViewUserPage", "User", new {creatorName = thread.Username.Name})>@thread.Username.Name</a>
                         </div>
                     </p>
                 }

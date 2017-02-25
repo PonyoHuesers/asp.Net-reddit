@@ -25,9 +25,9 @@ namespace MyWebsite.Models
         {
         }
 
-        public DbSet<User> DbUsers { get; set; }
-        public DbSet<Thread> Threads { get; set; }
-        public DbSet<Reply> Replies { get; set; }
+        //public DbSet<Username> Usernames { get; set; }
+        //public DbSet<Thread> Threads { get; set; }
+        //public DbSet<Comment> Comments { get; set; }
 
         public static ApplicationDbContext Create()
         {
