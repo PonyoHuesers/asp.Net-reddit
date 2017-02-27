@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
-using System.Collections.Generic;
 using System;
 
 //Project created by: Joshua Landreneau
@@ -13,18 +11,6 @@ namespace MyWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        private Context _context;
-
-        public HomeController()
-        {
-            _context = new Context();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-
         [AllowAnonymous]
         //Used for testing.
         public ActionResult Refactor()

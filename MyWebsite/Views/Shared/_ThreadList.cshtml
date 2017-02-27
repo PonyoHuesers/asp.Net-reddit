@@ -17,7 +17,7 @@
     </p>
 
     <div class="thread-creation">
-        @MyWebsite.Context.ElapsedTime(thread.Created)
+        @MyWebsite.Data.HelperMethods.ElapsedTime(thread.Created)
         <a href=@Url.Action("ViewUserPage", "User" , new {creatorName=thread.Name})>@thread.Username.Name</a>
     </div>
 }

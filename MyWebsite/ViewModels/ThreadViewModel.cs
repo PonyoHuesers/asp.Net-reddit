@@ -1,4 +1,5 @@
-﻿using MyWebsite.Models;
+﻿using MyWebsite.Data;
+using MyWebsite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace MyWebsite.ViewModels
         {
             get
             {
-                return Context.LoadThreadList(ThreadLocation);                      
+                return ThreadRepository.LoadThreadList(ThreadLocation);                      
             }
         }
         public string ThreadLocation { get; set; }
