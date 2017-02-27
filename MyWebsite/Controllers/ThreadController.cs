@@ -71,6 +71,7 @@ namespace MyWebsite.Controllers
 
         //This action gives the rated thread a higher or lower rating, depending on
         //whether it was upvoted or downvoted. It returns the page it was on when you voted.
+        [AllowAnonymous]
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
             var thread = _context.Threads.Single(c => c.Id == id);
@@ -87,25 +88,19 @@ namespace MyWebsite.Controllers
                 thread.DownvoteCount++;
             }
 
-            var threadList = _context.Threads.ToList();
-            var view = new NewThreadViewModel
-            {
-                ThreadList = threadList
-            };
-
-
+            var threadList = _context.Threads.Include("Username").ToList();
             _context.SaveChanges();
 
-            if (location == "New")
-                return View("~/Views/Home/New.cshtml", view);
+            if (location == "Newest")
+                return View("~/Views/Home/Newest.cshtml", new ThreadViewModel("Newest"));
 
             if (location == "Rising")
-                return View("~/Views/Home/Rising.cshtml", view);
+                return View("~/Views/Home/Rising.cshtml", new ThreadViewModel("Rising"));
 
             if (location == "Controversial")
-                return View("~/Views/Home/Controversial.cshtml", view);
+                return View("~/Views/Home/Controversial.cshtml", new ThreadViewModel("Controversial"));
 
-            return View("~/Views/Home/Hot.cshtml", view);
+            return View("~/Views/Home/Hot.cshtml", new ThreadViewModel("Hot"));
         }
     }
 }

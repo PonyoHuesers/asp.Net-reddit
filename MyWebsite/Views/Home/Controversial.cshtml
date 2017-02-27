@@ -1,4 +1,4 @@
-﻿@model MyWebsite.ViewModels.NewThreadViewModel
+﻿@model MyWebsite.ViewModels.ThreadViewModel
 
 @{
     ViewBag.Title = "Controversial";
@@ -9,50 +9,8 @@
     <div class="row">
         <div class="col-xs-12">
 
-
-            @foreach (var thread in Model.ThreadList.OrderByDescending(c => c.Rating))
-            {
-                var date = DateTime.Now.Subtract(thread.Created);
-                var days = " days, ";
-                var hours = " hours and ";
-                var minutes = "minutes";
-
-                if ((thread.UpvoteCount > 2) && (thread.DownvoteCount > 2))
-                {
-                    <p>
-                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", thread.Id, location = "Controversial"})>
-                            <i style='font-size: 24px' class='fa'>&uarr;</i>
-                        </a>
-                        @thread.Rating
-                        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", thread.Id, location = "Controversial"})>
-                            <i style='font-size: 24px' class='fa'>&darr;</i>
-                        </a>
-                        - @Html.ActionLink(thread.Name, "ViewThread", new {controller = "Thread", action = "ViewThread", id = thread.Id})
-                    </p>
-                    <p>
-                        <div class="thread-creation">
-                            Submitted:
-                            @if (date.Days > 0)
-                            {
-                                @date.Days
-                                ;
-                                @days
-                                ;
-                            }
-                            @if (date.Hours > 0)
-                            {
-                                @date.Hours
-                                ;
-                                @hours
-                                ;
-                            }
-                            @date.Minutes mintues ago, by <a href=@Url.Action("ViewUserPage", "User", new {creatorName = thread.Username.Name})>@thread.Username.Name</a>
-                        </div>
-                    </p>
-                }
-            }
+            @Html.Partial("_ThreadList")
 
         </div>
     </div>
-
 </div>

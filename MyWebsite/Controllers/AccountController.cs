@@ -148,7 +148,7 @@ namespace MyWebsite.Controllers
                         UserManager.SendEmailAsync(user.Id, "Confirm your account",
                             "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Hot", "Home");
+                    return RedirectToAction("Newest", "Home");
                 }
                 AddErrors(result);
             }

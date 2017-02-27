@@ -209,6 +209,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702251807210_initial.cs" />
+    <Compile Include="Migrations\201702251807210_initial.Designer.cs">
+      <DependentUpon>201702251807210_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702262240197_AddUsernameFKToThreadModel.cs" />
+    <Compile Include="Migrations\201702262240197_AddUsernameFKToThreadModel.Designer.cs">
+      <DependentUpon>201702262240197_AddUsernameFKToThreadModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702271258027_AddedThreadCollectionToUsernames.cs" />
+    <Compile Include="Migrations\201702271258027_AddedThreadCollectionToUsernames.Designer.cs">
+      <DependentUpon>201702271258027_AddedThreadCollectionToUsernames.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702271318126_ExplicitFKDeclarationforThread.cs" />
+    <Compile Include="Migrations\201702271318126_ExplicitFKDeclarationforThread.Designer.cs">
+      <DependentUpon>201702271318126_ExplicitFKDeclarationforThread.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -219,6 +235,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewThreadViewModel.cs" />
+    <Compile Include="ViewModels\ThreadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-darkly.css" />
@@ -268,7 +285,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\New.cshtml" />
+    <Content Include="Views\Home\Newest.cshtml" />
     <Content Include="Views\Home\Rising.cshtml" />
     <Content Include="Views\Home\Hot.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -297,6 +314,7 @@
     <Content Include="Views\User\ViewUserPage.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\Refactor.cshtml" />
+    <Content Include="Views\Shared\_ThreadList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,6 +333,20 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702251807210_initial.resx">
+      <DependentUpon>201702251807210_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702262240197_AddUsernameFKToThreadModel.resx">
+      <DependentUpon>201702262240197_AddUsernameFKToThreadModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702271258027_AddedThreadCollectionToUsernames.resx">
+      <DependentUpon>201702271258027_AddedThreadCollectionToUsernames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702271318126_ExplicitFKDeclarationforThread.resx">
+      <DependentUpon>201702271318126_ExplicitFKDeclarationforThread.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -26,18 +26,10 @@ namespace MyWebsite.Controllers
         }
 
         [AllowAnonymous]
+        //Used for testing.
         public ActionResult Refactor()
         {
-            Username u = new Username()
-            {
-                Name = "joshy"                
-            };
-            
-
-            _context.Usernames.Add(u);
-            _context.SaveChanges();
-
-            return View(u);
+            return View();
         }
 
         //This action displays a Form, where the threads are created and submitted at.
@@ -45,64 +37,44 @@ namespace MyWebsite.Controllers
         {
             return View();
         }
+        
 
-        //Displays all threads order in descending order based on their rating.
         [AllowAnonymous]
         public ActionResult Hot()
         {
-            var threads = _context.Threads.ToList();
-            
-            var view = new NewThreadViewModel
-            {
-                ThreadList = threads
-            };
-
-            return View(view);
+            return View(new ThreadViewModel("Hot"));
         }
 
        
         [AllowAnonymous]
-        //This page displays all threads made within 48 hours, ordered in descending order based on their rating.
-        public ActionResult New()
+        public ActionResult Newest()
         {
-            var threads = _context.Threads.ToList();
-
-            var view = new NewThreadViewModel
+            //Used for seeding the database.
+            Thread t1 = new Thread()
             {
-                ThreadList = threads
+                Username = new Username() { Name = "INactiveJoe" },
+                Name = "No rating here",
+                Created = DateTime.Now
             };
 
-            return View(view);
+            //_context.Threads.Add(t1);
+            //_context.SaveChanges();
+
+            return View(new ThreadViewModel("Newest"));
         }
 
         
         [AllowAnonymous]
-        //This page displays threads made within 24 hours that have risen in popularity with a net rating greater than 0.
         public ActionResult Rising()
         {
-            var threads = _context.Threads.ToList();
-
-            var view = new NewThreadViewModel
-            {
-                ThreadList = threads
-            };
-
-            return View(view);
+            return View(new ThreadViewModel("Rising"));
         }
 
         
         [AllowAnonymous]
-        //This page displays threads with ratings of greater than 2 in both positive and negative votes.
         public ActionResult Controversial()
         {
-            var threads = _context.Threads.ToList();
-
-            var view = new NewThreadViewModel
-            {
-                ThreadList = threads
-            };
-
-            return View(view);
+            return View(new ThreadViewModel("Controversial"));
         }
     }
 }

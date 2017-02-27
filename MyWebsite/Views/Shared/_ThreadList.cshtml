@@ -1,0 +1,23 @@
+﻿@model MyWebsite.ViewModels.ThreadViewModel
+
+@foreach (var thread in Model.ThreadList)
+{
+    <p>
+        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "up", thread.Id, location = Model.ThreadLocation})>
+            <i style='font-size: 24px' class='fa'>&uarr;</i>
+        </a>
+
+        @thread.Rating
+
+        <a href=@Url.Action("ThreadRating", "Thread", new {arrow = "down", thread.Id, location = Model.ThreadLocation})>
+            <i style='font-size: 24px' class='fa'>&darr;</i>
+        </a>
+
+        - @Html.ActionLink(thread.Name, "ViewThread", new { controller = "Thread", action = "ViewThread", id = thread.Id })
+    </p>
+
+    <div class="thread-creation">
+        @MyWebsite.Context.ElapsedTime(thread.Created)
+        <a href=@Url.Action("ViewUserPage", "User" , new {creatorName=thread.Name})>@thread.Username.Name</a>
+    </div>
+}
