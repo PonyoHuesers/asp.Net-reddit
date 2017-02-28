@@ -19,6 +19,7 @@ namespace MyWebsite.Controllers
         }
 
         //This action displays a Form, where the threads are created and submitted at.
+        [AllowAnonymous]
         public ActionResult Form()
         {
             return View();

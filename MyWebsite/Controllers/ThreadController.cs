@@ -8,7 +8,6 @@ namespace MyWebsite.Controllers
 {
     public class ThreadController : Controller
     {
-        //Declaring _context as ADO.Net Entity Data Model that allows CRUD operations to Azure database.
         private Context _context;
         public ThreadController()
         {
@@ -21,13 +20,11 @@ namespace MyWebsite.Controllers
         }
 
         [HttpPost]
-        //This action is where the Form view in HomeController submits to.
-        //The information from the new thread is passed here where the homepage is loaded
-        //with the new thread in the list of threads.
+        [AllowAnonymous]
         public ActionResult CreateThread(Thread thread)
         {
             var creator = ControllerContext.HttpContext.User.Identity.Name;
-            //put back in: thread.Username.Name = creator;
+            thread.Username.Name = creator;
             thread.Created = DateTime.Now;
             var user = _context.Usernames.SingleOrDefault(c => c.Name == creator);
             if (user == null)
@@ -38,18 +35,11 @@ namespace MyWebsite.Controllers
 
             _context.Threads.Add(thread);
             _context.SaveChanges();
-
-            var threadList = _context.Threads.ToList();
-            var view = new NewThreadViewModel
-            {
-                ThreadList = threadList
-            };
-
-            return View("~/Views/Home/Hot.cshtml", view);
+            
+            return View("~/Views/Home/Hot.cshtml", new ThreadViewModel("Hot"));
         }
 
         [AllowAnonymous]
-        //This action shows all the comments in any of the selected threads.
         public ActionResult ViewThread(int id)
         {
             var thread = _context.Threads.SingleOrDefault(c => c.Id == id);
