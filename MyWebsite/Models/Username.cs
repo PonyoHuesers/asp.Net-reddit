@@ -12,8 +12,7 @@ namespace MyWebsite.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
-        public byte[] EncodedPassword { get; set; }
+        public byte[] Password { get; set; }
 
         //Because a Username can belong to many Threads.
         public ICollection<Thread> Threads { get; set; }

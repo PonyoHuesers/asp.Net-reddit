@@ -49,10 +49,10 @@ namespace MyWebsite.Controllers
             Username user = new Username()
             {
                 Name = "Blap Right on",
-                Password = "bloop"
+                Password = UserRepository.EncodePassword("bloop")
             };
 
-            UserRepository.EncodePassword(user);
+            //UserRepository.EncodePassword(user);
 
             //_context.Threads.Add(t1);
             //_context.SaveChanges();

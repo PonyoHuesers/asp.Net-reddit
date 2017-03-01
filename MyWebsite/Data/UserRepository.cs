@@ -9,18 +9,53 @@ namespace MyWebsite.Data
 {
     public class UserRepository
     {
-        public static void EncodePassword(Username username)
+        public static void AddUsernameToDb(string username, string password)
         {
             using (Context _context = new Context())
             {
-                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(username.Password);
-                SHA1 sha = new SHA1CryptoServiceProvider();
-                byte[] password = sha.ComputeHash(bytes);
+                Username userToAddToDb = new Username()
+                {
+                    Name = username,
+                    Password = EncodePassword(password)
+                };
 
-                username.EncodedPassword = password;
-
-                _context.Usernames.Add(username);
+                _context.Usernames.Add(userToAddToDb);
                 _context.SaveChanges();
+            }
+        }
+
+        public static Username GetUser(string username)
+        {
+            using (Context _context = new Context())
+            {
+                return _context.Usernames.SingleOrDefault(u => u.Name == username);
+            }
+        }
+
+        //public static bool IsUsernameTaken(string username)
+        //{
+        //    using (Context _context = new Context())
+        //    {
+        //        if(_context.Usernames.Any(u => u.Name == username))
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //}
+
+        public static byte[] EncodePassword(string password)
+        {
+            using (Context _context = new Context())
+            {
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] encodedPassword = sha.ComputeHash(bytes);
+
+                return encodedPassword;
             }            
         }
     }
