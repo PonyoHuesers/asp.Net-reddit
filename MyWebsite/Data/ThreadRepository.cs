@@ -8,6 +8,19 @@ namespace MyWebsite.Data
 {
     public class ThreadRepository
     {
+        public static void CreateThread(Username username, Thread thread)
+        {
+            using (Context _context = new Context())
+            {
+                //thread.Username = username;
+                thread.Created = DateTime.Now;
+
+                _context.Threads.Add(thread);
+
+                _context.SaveChanges();
+            }
+        }
+
         public static IEnumerable<Thread> LoadThreadList(string threadLocation)
         {
             using (Context _context = new Context())

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
+using MyWebsite.Data;
 
 namespace MyWebsite.Controllers
 {
@@ -23,19 +24,8 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult CreateThread(Thread thread)
         {
-            var creator = ControllerContext.HttpContext.User.Identity.Name;
-            thread.Username.Name = creator;
-            thread.Created = DateTime.Now;
-            var user = _context.Usernames.SingleOrDefault(c => c.Name == creator);
-            if (user == null)
-            {
-                var newUser = new Username {Name = creator};
-                _context.Usernames.Add(newUser);
-            }
-
-            _context.Threads.Add(thread);
-            _context.SaveChanges();
-            
+            ThreadRepository.CreateThread(thread.Username, thread);
+                        
             return View("~/Views/Home/Hot.cshtml", new ThreadViewModel("Hot"));
         }
 

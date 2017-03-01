@@ -2,6 +2,7 @@
 using MyWebsite.Models;
 using MyWebsite.ViewModels;
 using System;
+using MyWebsite.Data;
 
 //Project created by: Joshua Landreneau
 //Finished and deployed to Azure: 10/5/2016
@@ -11,6 +12,7 @@ namespace MyWebsite.Controllers
 {
     public class HomeController : Controller
     {
+        Context _context = new Context();
         [AllowAnonymous]
         //Used for testing.
         public ActionResult Refactor()
@@ -39,10 +41,18 @@ namespace MyWebsite.Controllers
             //Used for seeding the database.
             Thread t1 = new Thread()
             {
-                Username = new Username() { Name = "INactiveJoe" },
-                Name = "No rating here",
+                Username = new Username() { Name = "LateNight" },
+                Name = "Late night name",
                 Created = DateTime.Now
             };
+
+            Username user = new Username()
+            {
+                Name = "Blap Right on",
+                Password = "bloop"
+            };
+
+            UserRepository.EncodePassword(user);
 
             //_context.Threads.Add(t1);
             //_context.SaveChanges();

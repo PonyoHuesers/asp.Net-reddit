@@ -9,12 +9,12 @@ using System.Web;
 
 namespace MyWebsite
 {
-    public class Context : DbContext 
+    public class Context : DbContext
     {
         public Context()
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
-        }     
+        }
         
         public DbSet<Username> Usernames { get; set; }
         public DbSet<Thread> Threads { get; set; }
