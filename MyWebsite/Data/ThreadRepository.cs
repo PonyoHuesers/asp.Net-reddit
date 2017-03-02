@@ -27,39 +27,29 @@ namespace MyWebsite.Data
         {
             using (Context _context = new Context())
             {
-                if (threadLocation == "Newest")
+                switch (threadLocation)
                 {
-                    return _context.Threads.Include("Username")
+                    case "Controversial":
+                        return _context.Threads.Include("Username")
+                                           .ToList()
+                                           .Where(t => t.UpvoteCount > 0 && t.DownvoteCount > 0)
+                                           .Take(5);
+                    case "Newest":
+                        return _context.Threads.Include("Username")
                                            .ToList()
                                            .OrderByDescending(t => t.Created)
                                            .Take(5);
-                }
-
-                if (threadLocation == "Hot")
-                {
-                    return _context.Threads.Include("Username")
+                    case "Rising":
+                        return _context.Threads.Include("Username")
+                                           .ToList()
+                                           .OrderByDescending(t => t.Rating)
+                                           .Take(5);
+                    default:
+                        return _context.Threads.Include("Username")
                                            .ToList()
                                            .OrderByDescending(t => t.Rating)
                                            .Take(10);
                 }
-
-                if (threadLocation == "Controversial")
-                {
-                    return _context.Threads.Include("Username")
-                                           .ToList()
-                                           .Where(t => t.UpvoteCount > 0 && t.DownvoteCount > 0)
-                                           .Take(5);
-                }
-
-                if (threadLocation == "Rising")
-                {
-                    return _context.Threads.Include("Username")
-                                           .ToList()
-                                           .OrderByDescending(t => t.Rating)
-                                           .Take(5);
-                }
-
-                return null;
             }
         }
     }

@@ -31,9 +31,8 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult ViewThread(int id)
         {
-            var thread = _context.Threads.SingleOrDefault(c => c.Id == id);
+            var thread = _context.Threads.Include("Username").SingleOrDefault(c => c.Id == id);
             var replyList = _context.Comments.Where(c => c.ThreadId == id);
-            var replyActualList = _context.Comments.Where(c => c.ThreadId == id).ToList();
             
             if (thread == null)
                 return HttpNotFound();
@@ -41,8 +40,7 @@ namespace MyWebsite.Controllers
             var viewModel = new NewThreadViewModel
             {
                 Threads = thread,
-                RepliesList = replyList,
-                RepliesActualList = replyActualList
+                RepliesList = replyList
             };
 
             return View(viewModel);

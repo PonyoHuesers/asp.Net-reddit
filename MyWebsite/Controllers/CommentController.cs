@@ -136,13 +136,11 @@ namespace MyWebsite.Controllers
 
             var thread = _context.Threads.Single(c => c.Id == comment.Comments.ThreadId);
             var replyList = _context.Comments.Where(c => c.ThreadId == thread.Id);
-            var replyActualList = _context.Comments.Where(c => c.ThreadId == thread.Id).ToList();
 
             var view = new NewThreadViewModel
             {
                 Threads = thread,
-                RepliesList = replyList,
-                RepliesActualList = replyActualList
+                RepliesList = replyList
             };
 
             return View("~/Views/Thread/ViewThread.cshtml", view);

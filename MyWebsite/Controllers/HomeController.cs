@@ -12,7 +12,6 @@ namespace MyWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        Context _context = new Context();
         [AllowAnonymous]
         //Used for testing.
         public ActionResult Refactor()
@@ -37,17 +36,6 @@ namespace MyWebsite.Controllers
         [AllowAnonymous]
         public ActionResult Newest()
         {
-            //Used for seeding the database.
-            Thread t1 = new Thread()
-            {
-                Username = new Username() { Name = "LateNight" },
-                Name = "Late night name",
-                Created = DateTime.Now
-            };
-
-            //_context.Threads.Add(t1);
-            //_context.SaveChanges();
-
             return View(new ThreadViewModel("Newest"));
         }
 

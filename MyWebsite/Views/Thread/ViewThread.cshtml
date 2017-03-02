@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Threads.Title</h2>
+<h2>@Model.Threads.Name</h2>
 
 <p>
     <div class="thread-creation-viewthread">
@@ -27,12 +27,12 @@
             ;
             @hours
             ;
-        } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = Model.Threads.Creator})>@Model.Threads.Creator</a>.
+        } @date.Minutes minutes ago by <a href=@Url.Action("ViewUserPage", "User", new {creatorId = Model.Threads.Username.Name})>@Model.Threads.Username.Name</a>.
     </div>
 </p>
 
 
-<div class="panel panel-primary panel-heading tweaks">@Model.Threads.Comment</div>
+<div class="panel panel-primary panel-heading tweaks">@Model.Threads.OpeningComment</div>
 
 
 @using (Html.BeginForm("SaveComment", "Comment"))
@@ -74,7 +74,7 @@
                         <i style='font-size: 24px' class='fa'>&darr;</i>
                     </a>
 
-                    <a href=@Url.Action("ViewUserPage", "User", new {creatorId = specificReply.Creator})>@specificReply.Creator</a> ~
+                    <a href=@Url.Action("ViewUserPage", "User", new {creatorId = specificReply.Username.Name })>@specificReply.Username.Name</a> ~
                     <a onclick="myFunction" href="javascript:myFunction(@commentId)">Reply</a> <br/>
 
                     <p>

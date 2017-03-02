@@ -9,6 +9,8 @@ namespace MyWebsite.ViewModels
 {
     public class ThreadViewModel
     {
+        public string ThreadLocation { get; set; }
+
         public ThreadViewModel(string threadLocation)
         {
             ThreadLocation = threadLocation;
@@ -20,7 +22,6 @@ namespace MyWebsite.ViewModels
             {
                 return ThreadRepository.LoadThreadList(ThreadLocation);                      
             }
-        }
-        public string ThreadLocation { get; set; }
+        }        
     }
 }
