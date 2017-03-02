@@ -306,7 +306,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Controversial.cshtml" />
     <Content Include="Views\Thread\ViewThread.cshtml" />
-    <Content Include="Views\Home\Form.cshtml" />
+    <Content Include="Views\Home\CreateThread.cshtml" />
     <Content Include="Views\User\ViewUserPage.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\Refactor.cshtml" />

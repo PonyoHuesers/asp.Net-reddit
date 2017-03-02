@@ -58,5 +58,24 @@ namespace MyWebsite.Data
                 return encodedPassword;
             }            
         }
+
+        public static bool VerifyPassword(string username, string password)
+        {
+            using (Context _context = new Context())
+            {
+                Username userInDb = _context.Usernames.SingleOrDefault(u => u.Name == username);
+
+                byte[] inputPassword = EncodePassword(password);
+
+                if(inputPassword.SequenceEqual(userInDb.Password))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

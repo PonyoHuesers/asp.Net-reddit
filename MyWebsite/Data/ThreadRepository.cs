@@ -8,11 +8,13 @@ namespace MyWebsite.Data
 {
     public class ThreadRepository
     {
-        public static void CreateThread(Username username, Thread thread)
+        public static void CreateThread(string username, Thread thread)
         {
             using (Context _context = new Context())
             {
-                //thread.Username = username;
+                Username threadCreator = _context.Usernames.Single(u => u.Name == username);
+
+                thread.Username = threadCreator;
                 thread.Created = DateTime.Now;
 
                 _context.Threads.Add(thread);

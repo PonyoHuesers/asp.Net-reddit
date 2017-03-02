@@ -21,10 +21,9 @@ namespace MyWebsite.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public ActionResult CreateThread(Thread thread)
+        public ActionResult ThreadCreation(Thread thread)
         {
-            ThreadRepository.CreateThread(thread.Username, thread);
+            ThreadRepository.CreateThread(User.Identity.Name, thread);
                         
             return View("~/Views/Home/Hot.cshtml", new ThreadViewModel("Hot"));
         }
@@ -50,8 +49,7 @@ namespace MyWebsite.Controllers
         }
 
         //This action gives the rated thread a higher or lower rating, depending on
-        //whether it was upvoted or downvoted. It returns the page it was on when you voted.
-        [AllowAnonymous]
+        //whether it was upvoted or downvoted. It returns the page it was on when you voted.        
         public ActionResult ThreadRating(int id, string arrow, string location)
         {
             var thread = _context.Threads.Single(c => c.Id == id);

@@ -21,8 +21,7 @@ namespace MyWebsite.Controllers
         }
 
         //This action displays a Form, where the threads are created and submitted at.
-        [AllowAnonymous]
-        public ActionResult Form()
+        public ActionResult CreateThread()
         {
             return View();
         }
@@ -45,14 +44,6 @@ namespace MyWebsite.Controllers
                 Name = "Late night name",
                 Created = DateTime.Now
             };
-
-            Username user = new Username()
-            {
-                Name = "Blap Right on",
-                Password = UserRepository.EncodePassword("bloop")
-            };
-
-            //UserRepository.EncodePassword(user);
 
             //_context.Threads.Add(t1);
             //_context.SaveChanges();
